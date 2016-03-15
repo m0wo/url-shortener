@@ -1,0 +1,12 @@
+{
+  "name": "skeltaljs",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "repository": "",
+  "author": "Alex Errington",
+  "dependencies": {
+    "express": "*",
+    "dotenv": "*"
+  }
+}
