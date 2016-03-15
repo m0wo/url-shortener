@@ -10,3 +10,8 @@ but only if you use this boilerplate
 
 This is a bare**bones** node boilerplate/**skeleton** I'm using to quickly spin up an environment for building APIs. Because it's nicer to just do a git pull each time.
 
+### Install
+
+- git pull this repository
+- npm install
+- thank mr skeltal
