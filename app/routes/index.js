@@ -27,7 +27,12 @@ module.exports = function (app, db) {
         .get(function(req, res){
            var key = req.params.key;
           urlService.retrieve(key, function(returnUrl, error){
-            res.redirect(returnUrl);
+            if(returnUrl === null){
+                res.send(error);
+            }else{
+                res.redirect(returnUrl);
+            }
+              
           })
            
         });
