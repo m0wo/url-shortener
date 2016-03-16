@@ -30,22 +30,21 @@ function urlService (db) {
     
     this.retrieve = function(shortUrl, callback){
         var cursor = urls.find({"short_url": shortUrl});
+        var returnUrl = "";
         
-        cursor.each(function(err, result){
+        cursor.each(function(err, doc){
             if(err != null){
                 console.log(err);
                 return;
             }
-            if(result != null){
-                console.log(result);
-                var returnUrl = result.original_url;
+
+            if(doc === null){
                 callback(returnUrl);
                 return;
             }
-            else if(result == null){
-                callback("", retrieveError);
-                return;
-            }
+            
+            returnUrl = doc.original_url;
+            
         });
     }
     

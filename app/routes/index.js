@@ -26,14 +26,9 @@ module.exports = function (app, db) {
     app.route('/:key')
         .get(function(req, res){
            var key = req.params.key;
-            res.send("i broke this");
-        //   urlService.retrieve(key, function(returnUrl, error){
-        //       if(error == null){
-        //         res.send(returnUrl);
-        //       }else if(error != null){
-        //           res.send(error);
-        //       }
-        //   })
+          urlService.retrieve(key, function(returnUrl, error){
+            res.redirect(returnUrl);
+          })
            
         });
         
