@@ -2,6 +2,7 @@
 
 function urlService (db) {
     var urls = db.collection('urlsTesting');    //remove Testing on prod.
+    var retrieveError = {"error": "No short url found for given input"};
     
     function generateKey(){
         return Math.random().toString(36).substring(7);
@@ -15,14 +16,16 @@ function urlService (db) {
     this.shorten = function(url, callback){
         if(validateUrl(url) != null){
             urls.insertOne({"original_url": url, "short_url": generateKey()}, function(err, result){
-               if(err != null){
+               if(err == null){
                 var obj = {"original_url": result.ops[0].original_url, "short_url": result.ops[0].short_url};
                 callback(obj);
+               }else{
+                   callback(null, "internal error");
                }
             });
+        }else{
+            callback(url, "invalid url");
         }
-        
-        callback(url, "invalid url");
     }
     
     this.retrieve = function(shortUrl, callback){
@@ -31,11 +34,17 @@ function urlService (db) {
         cursor.each(function(err, result){
             if(err != null){
                 console.log(err);
+                return;
             }
             if(result != null){
                 console.log(result);
                 var returnUrl = result.original_url;
                 callback(returnUrl);
+                return;
+            }
+            else if(result == null){
+                callback("", retrieveError);
+                return;
             }
         });
     }

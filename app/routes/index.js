@@ -13,22 +13,28 @@ module.exports = function (app, db) {
     app.route('/new/*')
         .get(function(req, res){
            var url = req.params[0];
-           //res.send(urlService.shorten(url));
            urlService.shorten(url, function(result,err){
                if(err == null){
                 res.send(result);
+               }else{
+                res.send(err);
                }
                
-               res.send(err);
            })
     });
         
     app.route('/:key')
         .get(function(req, res){
            var key = req.params.key;
-           urlService.retrieve(key, function(returnUrl){
-              res.redirect(returnUrl); 
-           });
+            res.send("i broke this");
+        //   urlService.retrieve(key, function(returnUrl, error){
+        //       if(error == null){
+        //         res.send(returnUrl);
+        //       }else if(error != null){
+        //           res.send(error);
+        //       }
+        //   })
+           
         });
         
     app.route('/api/all')
