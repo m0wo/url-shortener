@@ -23,17 +23,19 @@ function urlService (db) {
         }
     }
     
-    this.retrieve = function(shortUrl){
-           var cursor =urls.find( { "short_url": shortUrl } );
-           cursor.each(function(err, doc) {
-              if(err != null){
-                  console.log(err);
-              }
-              if (doc != null) {
-                 console.log(doc);
-                 return true;
-              }
-           });
+    this.retrieve = function(shortUrl, callback){
+        var cursor = urls.find({"short_url": shortUrl});
+        
+        cursor.each(function(err, result){
+            if(err != null){
+                console.log(err);
+            }
+            if(result != null){
+                console.log(result);
+                var returnUrl = result.original_url;
+                callback(returnUrl);
+            }
+        });
     }
     
     

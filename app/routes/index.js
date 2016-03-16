@@ -22,7 +22,9 @@ module.exports = function (app, db) {
     app.route('/:key')
         .get(function(req, res){
            var key = req.params.key;
-           res.send(urlService.retrieve(key));
+           urlService.retrieve(key, function(returnUrl){
+              res.redirect(returnUrl); 
+           });
         });
         
     app.route('/api/all')
