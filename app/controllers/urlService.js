@@ -15,12 +15,14 @@ function urlService (db) {
     this.shorten = function(url, callback){
         if(validateUrl(url) != null){
             urls.insertOne({"original_url": url, "short_url": generateKey()}, function(err, result){
-               if(err == null){
+               if(err != null){
                 var obj = {"original_url": result.ops[0].original_url, "short_url": result.ops[0].short_url};
                 callback(obj);
                }
             });
         }
+        
+        callback(url, "invalid url");
     }
     
     this.retrieve = function(shortUrl, callback){

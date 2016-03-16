@@ -14,8 +14,12 @@ module.exports = function (app, db) {
         .get(function(req, res){
            var url = req.params[0];
            //res.send(urlService.shorten(url));
-           urlService.shorten(url, function(result){
-               res.send(result);
+           urlService.shorten(url, function(result,err){
+               if(err == null){
+                res.send(result);
+               }
+               
+               res.send(err);
            })
     });
         
